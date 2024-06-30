@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights">
+      <a-assets>
+        <img id="btninsta" src="./idcard.jpg.jpeg" crossorigin="anonymous">
+        <img id="btnphone" src="./call.jpg" crossorigin="anonymous">
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+
+      <a-entity id="example-target" mindar-image-target="targetIndex: 0">
+        <a-plane id="info-box" class="clickable" color="#FFFFFF" width="1" height="0.5" position="0 0 0" rotation="0 0 0">
+          <a-text value="Click to view ID Card info" color="#000000" align="center" position="0 0 0.1" width="1.5"></a-text>
+        </a-plane>
+      </a-entity>   
+    </a-scene>
+
+    <script type="text/javascript">
+      const exampleTarget = document.querySelector('#example-target');
+      exampleTarget.addEventListener("targetFound", event => {
+        console.log("target found");
+      });
+
+      exampleTarget.addEventListener("targetLost", event => {
+        console.log("target lost");
+      });
+
+      const infoBox = document.querySelector('#info-box');
+      infoBox.addEventListener("click", event => {
+        alert("ID Card Information:\nName: Doshi Maitry Vinaykumar\nroll no: 02 \nDepartment: computer Engineering\ninstitue: ppi\nen: 2303466160002");
+      });
+    </script>
+  </body>
+</html>
